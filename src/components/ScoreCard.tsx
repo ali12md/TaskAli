@@ -1,13 +1,13 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import Avatar from "../../components/Avatar";
-import ArrowIcon from "../../assets/svg/ArrowIcon";
-import CardIcon2 from "../../assets/svg/CardIcon2";
-import CardIcon1 from "../../assets/svg/CardIcon1";
-import DirectionalPad from "../../components/DirectionalPad";
-import RowItem from "../../components/RowItem";
-import TickIcon from "../../assets/svg/TickIcon";
-import Counter from "../../components/Counter";
+import Avatar from "./Avatar";
+import ArrowIcon from "../assets/svg/ArrowIcon";
+import CardIcon2 from "../assets/svg/CardIcon2";
+import CardIcon1 from "../assets/svg/CardIcon1";
+import DirectionalPad from "./DirectionalPad";
+import RowItem from "./RowItem";
+import TickIcon from "../assets/svg/TickIcon";
+import Counter from "./Counter";
 
 const ScoreCard = () => {
     return (

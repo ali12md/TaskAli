@@ -14,7 +14,7 @@ const Container: React.FC<ContainerProps> = ({
 }) => {
     return (
         <View style={[styles.container, { backgroundColor: bgColor }, style]}>
-            <StatusBar barStyle={'dark-content'} backgroundColor={'black'} />
+            <StatusBar barStyle={'dark-content'} />
             <SafeAreaView style={{ flex: 1 }}>
                 {children}
             </SafeAreaView>

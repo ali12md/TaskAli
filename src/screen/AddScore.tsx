@@ -7,9 +7,11 @@ import UserIcon from "../assets/svg/UserIcon";
 import BoldRowItem from "../components/BoldRowItem";
 import Container from "../components/Container";
 import Avatar from "../components/Avatar";
-import ScoreCard from "./Component/ScoreCard";
+import { useNavigation } from "@react-navigation/native";
+import ScoreCard from "../components/ScoreCard";
 
 const AddScore = () => {
+  const { navigate } = useNavigation();
   return (
     <Container>
       {/* header */}
@@ -25,7 +27,9 @@ const AddScore = () => {
           >Qutab Golf course</Text>
         </View>
         <View style={styles.fdr}>
-          <ScoreDetailIcon />
+          <ScoreDetailIcon
+            onPress={() => navigate('ScoreDetail')}
+          />
           <UserIcon />
         </View>
       </View>
