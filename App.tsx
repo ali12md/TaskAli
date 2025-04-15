@@ -6,16 +6,15 @@
  */
 
 import React from 'react';
-import {
-  Text
-} from 'react-native';
+import RootStack from './src/navigation/RootStack';
+import { NavigationContainer } from '@react-navigation/native';
 
 function App(): React.JSX.Element {
 
   return (
-    <Text
-      style={{ marginTop: 300, textAlign: 'center' }}
-    >hello world</Text>
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
   );
 }
 
