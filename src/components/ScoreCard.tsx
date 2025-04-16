@@ -72,7 +72,7 @@ const ScoreCard = () => {
             </View>
 
             <View style={styles.middleSection}>
-                <DirectionalPad />
+                <DirectionalPad title="FR" />
                 <DirectionalPad />
             </View>
 

@@ -7,16 +7,20 @@ const directions = [
     { label: 'right', style: { right: 20, top: '42%' }, rotation: '90deg' },
     { label: 'down', style: { bottom: 20, left: '42%' }, rotation: '180deg' },
 ];
-const DirectionalPad = () => {
+// I couldn't complete its UI due to a lack of time ,
+// I started this task on Monday evening because of my sister's wedding
+
+const DirectionalPad = ({
+    title = 'GIR'
+}) => {
     const [selected, setSelected] = useState<string | null>(null);
     return (
         <View style={styles.container}>
-            {/* Circle */}
+
             <View style={styles.circle}>
 
-                {/* Center Text */}
                 <View style={styles.centerCircle}>
-                    <Text style={styles.centerText}>GIR</Text>
+                    <Text style={styles.centerText}>{title}</Text>
                 </View>
             </View>
         </View>
@@ -39,7 +43,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
     },
     arrow: {
-        // fontSize: 28,
         color: 'gray',
     },
     selectedArrow: {

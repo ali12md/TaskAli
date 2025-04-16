@@ -12,6 +12,9 @@ import ScoreCard from "../components/ScoreCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { dummyScoreData } from "../utils/data";
 
+//// I couldn't complete DirectionPad UI due to a lack of time ,
+// I started this task on Monday evening because of my sister's wedding
+
 const AddScore = () => {
   const { navigate } = useNavigation();
 
