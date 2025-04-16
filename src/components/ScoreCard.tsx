@@ -9,7 +9,7 @@ import DirectionalPad from "./DirectionalPad";
 import RowItem from "./RowItem";
 import CircularText from "./CircularText";
 
-const SCORECARD_KEY = '@scorecard_data';
+const SCORECARD_KEY = 'scorecard_data';
 
 const ScoreCard = () => {
     const [score, setScore] = useState(0);

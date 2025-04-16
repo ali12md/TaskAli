@@ -20,9 +20,9 @@ const AddScore = () => {
 
   useEffect(() => {
     const setDefaultData = async () => {
-      const existingData = await AsyncStorage.getItem('@scorecard_data');
+      const existingData = await AsyncStorage.getItem('scorecard_data');
       if (!existingData) {
-        await AsyncStorage.setItem('@scorecard_data', JSON.stringify(dummyScoreData));
+        await AsyncStorage.setItem('scorecard_data', JSON.stringify(dummyScoreData));
       }
     };
     setDefaultData();

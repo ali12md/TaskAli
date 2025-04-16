@@ -14,7 +14,7 @@ const ScoreDetail = () => {
   const [loading, setLoading] = useState(true);
 
   const getData = async () => {
-    const json = await AsyncStorage.getItem('@scorecard_data');
+    const json = await AsyncStorage.getItem('scorecard_data');
     setScorecardData(json ? JSON.parse(json) : []);
     setLoading(false);
   };
@@ -45,7 +45,7 @@ const ScoreDetail = () => {
       </ScrollView>
       <TouchableOpacity
         onPress={async () => {
-          await AsyncStorage.setItem('@scorecard_data', JSON.stringify(dummyScoreData));
+          await AsyncStorage.setItem('scorecard_data', JSON.stringify(dummyScoreData));
           setScorecardData(dummyScoreData);
         }}
         style={styles.resetButton}
