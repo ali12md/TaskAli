@@ -1,41 +1,45 @@
-import { StyleSheet, Text, View } from "react-native";
 import React, { ReactNode } from "react";
-import TickIcon from "../assets/svg/TickIcon";
+import { View, Text, StyleSheet } from "react-native";
 
 interface TRowItem {
-    icon?: ReactNode,
+    icon?: ReactNode;
     text: string;
-    number?: number
+    number?: number;
 }
-const RowItem = ({
-    icon,
-    text,
-    number
-}: TRowItem) => {
+
+const RowItem = ({ icon, text, number }: TRowItem) => {
     return (
-        <View
-            style={{
-                alignItems: 'center',
-                // gap: 5
-            }}
-        >
-            <View style={{ height: 27, width: 27, alignItems: 'center', justifyContent: 'center' }}>
-                {icon ? icon : <Text
-                    style={{
-                        fontSize: 25,
-                        fontWeight: '500',
-                        color: '#969696'
-                    }}
-                >{number}
-                </Text>}
+        <View style={styles.container}>
+            <View style={styles.iconContainer}>
+                {icon ? (
+                    icon
+                ) : (
+                    <Text style={styles.number}>{number}</Text>
+                )}
             </View>
-            <Text
-                style={{ fontSize: 16, fontWeight: '500' }}
-            >{text}</Text>
+            <Text style={styles.text}>{text}</Text>
         </View>
     );
 };
 
-export default RowItem;
+const styles = StyleSheet.create({
+    container: {
+        alignItems: "center",
+    },
+    iconContainer: {
+        height: 27,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    number: {
+        fontSize: 25,
+        fontWeight: "500",
+        color: "#969696",
+    },
+    text: {
+        fontSize: 16,
+        fontWeight: "500",
+    },
+});
 
-const styles = StyleSheet.create({});
+export default RowItem;

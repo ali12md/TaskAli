@@ -14,12 +14,12 @@ import { dummyScoreData } from "../utils/data";
 
 const AddScore = () => {
   const { navigate } = useNavigation();
+
   useEffect(() => {
     const setDefaultData = async () => {
       const existingData = await AsyncStorage.getItem('@scorecard_data');
       if (!existingData) {
         await AsyncStorage.setItem('@scorecard_data', JSON.stringify(dummyScoreData));
-        console.log('Default data set');
       }
     };
     setDefaultData();
@@ -31,49 +31,23 @@ const AddScore = () => {
       <View style={styles.header}>
         <View style={styles.fdr}>
           <CrossIcon />
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "600",
-              color: "#000000",
-            }}
-          >Qutab Golf course</Text>
+          <Text style={styles.headerText}>Qutab Golf course</Text>
         </View>
         <View style={styles.fdr}>
-          <ScoreDetailIcon
-            onPress={() => navigate('ScoreDetail')}
-          />
+          <ScoreDetailIcon onPress={() => navigate('ScoreDetail')} />
           <UserIcon />
         </View>
       </View>
+
       {/* bgImage header */}
-      <ImageBackground
-        source={require('../assets/Image/bgImg.png')}
-        style={{
-          width: '100%',
-          height: 80,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <View
-          style={{
-            width: '100%',
-            height: '100%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: 20,
-          }}
-        >
+      <ImageBackground source={require('../assets/Image/bgImg.png')} style={styles.bgImage}>
+        <View style={styles.imageContent}>
           <ArrowIcon />
           <Avatar text="1" size={55} />
           <BoldRowItem text="YARDS" unit='200' />
           <BoldRowItem text="PAR" unit='3' />
           <BoldRowItem text="INDEX" unit='12' />
-          <ArrowIcon
-            style={{ transform: [{ rotate: '180deg' }] }}
-          />
+          <ArrowIcon style={styles.arrowIcon} />
         </View>
       </ImageBackground>
       <ScoreCard />
@@ -84,7 +58,7 @@ const AddScore = () => {
 export default AddScore;
 
 const styles = StyleSheet.create({
-  //header
+  // Header styles
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -95,5 +69,29 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 15,
-  }
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#000000",
+  },
+
+  // Background image and content styles
+  bgImage: {
+    width: '100%',
+    height: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageContent: {
+    width: '100%',
+    height: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
+  },
+  arrowIcon: {
+    transform: [{ rotate: '180deg' }],
+  },
 });

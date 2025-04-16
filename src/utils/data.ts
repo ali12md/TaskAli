@@ -210,3 +210,12 @@ export const dummyScoreData = [
     ],
   },
 ];
+
+
+export const colorLegend = [
+  { title: 'Eagle/Better', color: '#E5C74D' },
+  { title: 'Birdie', color: '#DC3735' },
+  { title: 'Bogey', color: '#0A599B' },
+  { title: 'Double Bogey/Worse', color: '#000000' },
+  { title: 'Eagle', color: 'green' },
+];

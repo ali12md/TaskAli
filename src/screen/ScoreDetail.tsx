@@ -5,15 +5,7 @@ import ArrowIcon from "../assets/svg/ArrowIcon";
 import { useNavigation } from "@react-navigation/native";
 import { ScoreTable } from "../components/ScoreTable";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { dummyScoreData } from "../utils/data";
-
-const colorLegend = [
-  { title: 'Eagle/Better', color: '#E5C74D' },
-  { title: 'Birdie', color: '#DC3735' },
-  { title: 'Bogey', color: '#0A599B' },
-  { title: 'Double Bogey/Worse', color: '#000000' },
-  { title: 'Eagle', color: 'green' },
-];
+import { colorLegend, dummyScoreData } from "../utils/data";
 
 const ScoreDetail = () => {
   const { goBack } = useNavigation();
@@ -31,7 +23,6 @@ const ScoreDetail = () => {
     getData();
   }, []);
 
-  if (loading) return <ActivityIndicator />;
 
   return (
     <Container bgColor="white">
@@ -105,9 +96,8 @@ const styles = StyleSheet.create({
   },
   resetButton: {
     backgroundColor: '#0A599B',
-    marginTop: 20,
     width: 100,
-    height: 50,
+    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -115,7 +105,7 @@ const styles = StyleSheet.create({
   },
   resetButtonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '600',
   },
 });

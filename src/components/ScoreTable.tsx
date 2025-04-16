@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { View, Text, FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import CircleplusIcon from '../assets/svg/CircleplusIcon';
 
@@ -7,7 +7,30 @@ const FIXED_WIDTH = 100;
 const DYNAMIC_CELL_WIDTH = 70;
 const BORDER_WIDTH = 0.5;
 const BORDER_RADIUS = 6;
-const POSITION = -13
+const POSITION = -13;
+
+type ScorecardItem = {
+    id: string;
+    label: string;
+    bgColor?: string;
+    textColor?: string;
+    fontSize?: number;
+    fontWeight?: string;
+    value: { holeNo: number | string; val: any; textColorImp?: string; textCircleColor?: string }[];
+};
+
+type ScoreTableProps = {
+    scorecardData: ScorecardItem[];
+};
+
+type CellProps = {
+    data: { holeNo: number | string; val: any; textColorImp?: string; textCircleColor?: string };
+    bgColor?: string;
+    textColor?: string;
+    isHeader?: boolean;
+    fontSize?: number;
+    fontWeight?: string;
+};
 
 const Cell = ({
     data,
@@ -16,14 +39,7 @@ const Cell = ({
     fontSize = 14,
     fontWeight = '400',
     isHeader,
-}: {
-    data: { holeNo: number | string; val: any; textColorImp?: string; textCircleColor?: string },
-    bgColor?: string,
-    textColor?: string,
-    isHeader?: boolean,
-    fontSize?: number,
-    fontWeight?: string
-}) => (
+}: CellProps) => (
     <View
         style={{
             width: DYNAMIC_CELL_WIDTH,
@@ -58,32 +74,26 @@ const Cell = ({
     </View>
 );
 
-const ScrollableRow = ({ item }) => {
-    // console.log('ScrollableRow', item);
-    return (
-        <FlatList
-            data={item.value}
-            horizontal
-            keyExtractor={(val) => `col-${val.holeNo}`}
-            scrollEnabled={false}
-            renderItem={({ item: cellItem, index }) => {
-                console.log('cellItem', cellItem);
-                return (
-                    <Cell
-                        data={cellItem}
-                        bgColor={item.bgColor}
-                        textColor={item.textColor}
-                        isHeader={item.label === "Hole" && item.value.length - 1 === index}
-                        fontSize={item?.fontSize}
-                        fontWeight={item?.fontWeight}
-                    />
-                )
-            }}
-        />
-    )
-};
+const ScrollableRow = ({ item }: { item: ScorecardItem }) => (
+    <FlatList
+        data={item.value}
+        horizontal
+        keyExtractor={(val) => `col-${val.holeNo}`}
+        scrollEnabled={false}
+        renderItem={({ item: cellItem, index }) => (
+            <Cell
+                data={cellItem}
+                bgColor={item.bgColor}
+                textColor={item.textColor}
+                isHeader={item.label === "Hole" && item.value.length - 1 === index}
+                fontSize={item?.fontSize}
+                fontWeight={item?.fontWeight}
+            />
+        )}
+    />
+);
 
-export const ScoreTable = ({ scorecardData }: any) => {
+export const ScoreTable = ({ scorecardData }: ScoreTableProps) => {
     const [hiddenIds, setHiddenIds] = useState<Set<string>>(new Set());
 
     const toggleIds = (ids: string[]) => {
@@ -103,6 +113,11 @@ export const ScoreTable = ({ scorecardData }: any) => {
     const visibleData = useMemo(() => {
         return scorecardData.filter(item => !hiddenIds.has(item.id));
     }, [scorecardData, hiddenIds]);
+
+    useEffect(() => {
+        toggleParRows();
+        toggleNameRows();
+    }, [])
 
     return (
         <View style={{ marginLeft: 20, borderColor: '#ccc', borderRadius: BORDER_RADIUS }}>

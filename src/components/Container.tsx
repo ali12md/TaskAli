@@ -1,5 +1,5 @@
-import { SafeAreaView, StatusBar, StyleSheet, Text, View, ViewStyle } from "react-native";
-import React from "react";
+import React from 'react';
+import { SafeAreaView, StatusBar, StyleSheet, View, ViewStyle } from 'react-native';
 
 interface ContainerProps {
     children: React.ReactNode;
@@ -11,23 +11,18 @@ const Container: React.FC<ContainerProps> = ({
     style,
     children,
     bgColor = '#F1F1F1',
-}) => {
-    return (
-        <View style={[styles.container, { backgroundColor: bgColor }, style]}>
-            <StatusBar barStyle={'dark-content'} />
-            <SafeAreaView style={{ flex: 1 }}>
-                {children}
-            </SafeAreaView>
-
-        </View>
-    );
-};
-
-export default Container;
+}) => (
+    <View style={[styles.container, { backgroundColor: bgColor }, style]}>
+        <StatusBar barStyle="dark-content" />
+        <SafeAreaView >{children}</SafeAreaView>
+    </View>
+);
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: StatusBar.currentHeight,
-    },
+    }
 });
+
+export default Container;
