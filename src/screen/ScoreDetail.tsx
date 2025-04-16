@@ -1,10 +1,11 @@
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import Container from "../components/Container";
 import ArrowIcon from "../assets/svg/ArrowIcon";
 import { useNavigation } from "@react-navigation/native";
 import { ScoreTable } from "../components/ScoreTable";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { dummyScoreData } from "../utils/data";
 
 const data = [
   {
@@ -161,6 +162,28 @@ const ScoreDetail = () => {
       <ScoreTable
         scorecardData={scorecardData}
       />
+      <TouchableOpacity
+        onPress={async () => {
+          await AsyncStorage.setItem('@scorecard_data', JSON.stringify(dummyScoreData));
+          setScorecardData(dummyScoreData)
+        }}
+        style={{
+          backgroundColor: '#0A599B',
+          marginTop: 20,
+          width: 100,
+          height: 50,
+          justifyContent: 'center',
+          alignItems: 'center',
+          alignSelf: 'center',
+          borderRadius: 8
+        }}
+      >
+        <Text style={{
+          color: 'white',
+          fontSize: 16,
+          fontWeight: '600'
+        }}>Reset</Text>
+      </TouchableOpacity>
 
     </Container>
   );

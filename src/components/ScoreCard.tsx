@@ -1,18 +1,16 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
-import Avatar from "./Avatar";
+import { Text, View } from "react-native";
 import ArrowIcon from "../assets/svg/ArrowIcon";
-import CardIcon2 from "../assets/svg/CardIcon2";
-import CardIcon1 from "../assets/svg/CardIcon1";
+import TickIcon from "../assets/svg/TickIcon";
+import Avatar from "./Avatar";
+import Counter from "./Counter";
 import DirectionalPad from "./DirectionalPad";
 import RowItem from "./RowItem";
-import TickIcon from "../assets/svg/TickIcon";
-import Counter from "./Counter";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ScoreCard = () => {
-    const [score, setScore] = useState(5);
-    const [hole, setHole] = useState(3);
+    const [score, setScore] = useState(0);
+    const [hole, setHole] = useState(0);
 
     const addScore = async (holeNo: number, value: number) => {
         const json = await AsyncStorage.getItem('@scorecard_data');
@@ -29,15 +27,29 @@ const ScoreCard = () => {
                 nameRow.value[index] = {
                     ...nameRow.value[index],
                     val: value,
-                    textColorImp: 'white',
-                    textCircleColor: 'green',
+                    textColorImp: index % 2 === 0 && 'white',
+                    textCircleColor: index % 2 === 0 && '#0A599B',
                 };
             }
+
+            // Update 'OUT', 'IN', and 'total' fields with numeric values
+            nameRow.value.forEach((item, idx) => {
+                if (item.holeNo === 'OUT') {
+                    item.val = nameRow.value.slice(0, 9).reduce((acc, curr) => acc + (curr.val || 0), 0);  // Sum of first 9 holes
+                }
+                if (item.holeNo === 'IN') {
+                    item.val = nameRow.value.slice(9, 18).reduce((acc, curr) => acc + (curr.val || 0), 0);  // Sum of holes 10-18
+                }
+                if (item.holeNo === 'total') {
+                    item.val = nameRow.value.slice(0, 18).reduce((acc, curr) => acc + (curr.val || 0), 0);  // Total sum of all holes
+                }
+            });
         }
 
         await AsyncStorage.setItem('@scorecard_data', JSON.stringify(data));
         console.log('Score updated');
     };
+
 
     useEffect(() => {
         addScore(hole, score)
