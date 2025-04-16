@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import ArrowIcon from "../assets/svg/ArrowIcon";
 import CrossIcon from "../assets/svg/CrossIcon";
@@ -9,9 +9,22 @@ import Container from "../components/Container";
 import Avatar from "../components/Avatar";
 import { useNavigation } from "@react-navigation/native";
 import ScoreCard from "../components/ScoreCard";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { dummyScoreData } from "../utils/data";
 
 const AddScore = () => {
   const { navigate } = useNavigation();
+  useEffect(() => {
+    const setDefaultData = async () => {
+      const existingData = await AsyncStorage.getItem('@scorecard_data');
+      if (!existingData) {
+        await AsyncStorage.setItem('@scorecard_data', JSON.stringify(dummyScoreData));
+        console.log('Default data set');
+      }
+    };
+    setDefaultData();
+  }, []);
+
   return (
     <Container>
       {/* header */}

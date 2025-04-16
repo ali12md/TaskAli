@@ -3,14 +3,29 @@ import React from "react";
 import CircleMinusIcon from "../assets/svg/CircleMinusIcon";
 import CircleplusIcon from "../assets/svg/CircleplusIcon";
 
-const Counter = () => {
+interface TCounter {
+    onPressMinus: () => void;
+    onPressPlus: () => void;
+    title: string;
+    value: number;
+}
+
+const Counter = ({
+    onPressMinus,
+    onPressPlus,
+    title = 'Score',
+    value = 9
+}: TCounter) => {
+
     return (
         <View
             style={{
                 alignItems: 'center'
             }}
         >
-            <Text>Counter</Text>
+            <Text
+                style={{ fontSize: 16, fontWeight: '600', color: '#3B5062' }}
+            >{title}</Text>
             <View
                 style={{
                     flexDirection: 'row',
@@ -18,15 +33,21 @@ const Counter = () => {
                     gap: 10
                 }}
             >
-                <CircleMinusIcon />
+                <CircleMinusIcon
+                    onPress={onPressMinus}
+                    width={25}
+                />
                 <Text
                     style={{
                         color: '#3B5062',
-                        fontSize: 35,
+                        fontSize: 25,
                         fontWeight: '600'
                     }}
-                >4</Text>
-                <CircleplusIcon />
+                >{value}</Text>
+                <CircleplusIcon
+                    onPress={onPressPlus}
+                    width={25}
+                />
             </View>
         </View>
     );

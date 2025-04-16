@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "./Avatar";
 import ArrowIcon from "../assets/svg/ArrowIcon";
 import CardIcon2 from "../assets/svg/CardIcon2";
@@ -8,8 +8,41 @@ import DirectionalPad from "./DirectionalPad";
 import RowItem from "./RowItem";
 import TickIcon from "../assets/svg/TickIcon";
 import Counter from "./Counter";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ScoreCard = () => {
+    const [score, setScore] = useState(5);
+    const [hole, setHole] = useState(3);
+
+    const addScore = async (holeNo: number, value: number) => {
+        const json = await AsyncStorage.getItem('@scorecard_data');
+        if (!json) return;
+
+        const data = JSON.parse(json);
+
+        // "name" row ko find karo
+        const nameRow = data.find((row) => row.id === 'name');
+
+        if (nameRow) {
+            const index = nameRow.value.findIndex((item) => item.holeNo === holeNo);
+            if (index !== -1) {
+                nameRow.value[index] = {
+                    ...nameRow.value[index],
+                    val: value,
+                    textColorImp: 'white',
+                    textCircleColor: 'green',
+                };
+            }
+        }
+
+        await AsyncStorage.setItem('@scorecard_data', JSON.stringify(data));
+        console.log('Score updated');
+    };
+
+    useEffect(() => {
+        addScore(hole, score)
+    }, [score, hole])
+
     return (
         <View
             style={{
@@ -128,19 +161,29 @@ const ScoreCard = () => {
                     gap: 45
                 }}
             >
-                <Counter />
-                <Counter />
+                <Counter
+                    title={'Score'}
+                    value={score}
+                    onPressMinus={() => {
+                        setScore((prev) => prev - 1)
+                    }}
+                    onPressPlus={() => {
+                        setScore((prev) => prev + 1)
+                    }}
+                />
+                <Counter
+                    title={'Hole'}
+                    value={hole}
+                    onPressMinus={() => {
+                        setHole((prev) => prev - 1)
+                    }}
+                    onPressPlus={() => {
+                        setHole((prev) => prev + 1)
+                    }}
+                />
             </View>
         </View>
     );
 };
 
 export default ScoreCard;
-
-
-const directions = [
-    { label: 'up', style: { top: 20, left: '42%' }, rotation: '0deg' },
-    { label: 'left', style: { left: 20, top: '42%' }, rotation: '-90deg' },
-    { label: 'right', style: { right: 20, top: '42%' }, rotation: '90deg' },
-    { label: 'down', style: { bottom: 20, left: '42%' }, rotation: '180deg' },
-];

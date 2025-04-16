@@ -1,12 +1,4 @@
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import Container from "../components/Container";
-import ArrowIcon from "../assets/svg/ArrowIcon";
-import { useNavigation } from "@react-navigation/native";
-import { ScoreTable } from "../components/ScoreTable";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const data = [
+export const dummyScoreData = [
   {
     id: 'hole',
     label: "Hole",
@@ -114,57 +106,3 @@ const data = [
     })),
   },
 ];
-
-
-const ScoreDetail = () => {
-  const { goBack } = useNavigation();
-
-  const [scorecardData, setScorecardData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const getData = async () => {
-    const json = await AsyncStorage.getItem('@scorecard_data');
-    setScorecardData(json ? JSON.parse(json) : []);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  if (loading) return <ActivityIndicator />;
-
-
-  return (
-    <Container
-      bgColor="white"
-    >
-      <View
-        style={{
-          backgroundColor: 'black',
-          flexDirection: 'row',
-          padding: 20,
-          gap: 20,
-          alignItems: 'center',
-          marginBottom: 30
-        }}
-      >
-        <ArrowIcon onPress={goBack} />
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: '400',
-            color: 'white'
-          }}
-        >Score Card</Text>
-      </View>
-      <ScoreTable
-        scorecardData={scorecardData}
-      />
-
-    </Container>
-  );
-};
-
-export default ScoreDetail;
-
