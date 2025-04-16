@@ -43,7 +43,7 @@ const ScoreDetail = () => {
           </View>
         ))}
       </ScrollView>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={async () => {
           await AsyncStorage.setItem('scorecard_data', JSON.stringify(dummyScoreData));
           setScorecardData(dummyScoreData);
@@ -51,7 +51,7 @@ const ScoreDetail = () => {
         style={styles.resetButton}
       >
         <Text style={styles.resetButtonText}>Reset</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </Container>
   );
 };

@@ -28,8 +28,8 @@ const ScoreCard = () => {
                 nameRow.value[index] = {
                     ...nameRow.value[index],
                     val: value,
-                    textColorImp: index % 2 === 0 ? 'white' : undefined,
-                    textCircleColor: index % 2 === 0 ? '#0A599B' : undefined,
+                    textColorImp: index % 3 === 0 ? 'white' : undefined,
+                    textCircleColor: index % 3 === 0 ? '#0A599B' : undefined,
                 };
             }
 
