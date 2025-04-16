@@ -7,6 +7,7 @@ import Avatar from "./Avatar";
 import Counter from "./Counter";
 import DirectionalPad from "./DirectionalPad";
 import RowItem from "./RowItem";
+import CircularText from "./CircularText";
 
 const SCORECARD_KEY = '@scorecard_data';
 
@@ -65,7 +66,7 @@ const ScoreCard = () => {
                     </View>
                 </View>
                 <View style={styles.arrowSection}>
-                    <Text>sd</Text>
+                    <CircularText bottomText={2} topText={4} />
                     <ArrowIcon stroke={'black'} style={styles.arrowIcon} width={20} />
                 </View>
             </View>
